@@ -2,16 +2,25 @@ package com.williamartins.cursomc.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /*implementar o SERIALIZABLE 
  * é uma interface que diz que a class sendo implementada "categoria"
  *os objeto dela pode ser convertido com uma sequancia de byte,
  *pra que serve ? - Serve pra dizer q os objeto pode ser gravado em arquivos, trafegar em redes etc..
  *exigencia da linguagem java.
  *.".*/
+
+@Entity
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/* atributos da class*/
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	
@@ -25,7 +34,6 @@ public class Categoria implements Serializable {
 		this.id = id;
 		this.nome = nome;
 	}
-
 	/*Getters e Setters metodos de acesso ao atributos.*/
 	public Integer getId() {
 		return id;
