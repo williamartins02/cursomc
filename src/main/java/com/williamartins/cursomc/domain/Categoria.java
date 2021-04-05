@@ -1,11 +1,14 @@
 package com.williamartins.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /*implementar o SERIALIZABLE 
  * é uma interface que diz que a class sendo implementada "categoria"
@@ -24,6 +27,9 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
+	@ManyToMany(mappedBy="categorias")
+	private List<Produto> produtos = new ArrayList<>();
+	
 	/*Criando um construtor vazio, ou seja com o construtor 
 	 * vazio estancio um objeto sem jogar nada os atributos */
 	public Categoria() {
@@ -34,7 +40,15 @@ public class Categoria implements Serializable {
 		this.id = id;
 		this.nome = nome;
 	}
-	/*Getters e Setters metodos de acesso ao atributos.*/
+	/*Getters e Setters metodos de acesso ao atributos produtos, instaciado na class categoria..*/
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	
+	/*Getters e Setters metodos de acesso ao atributos Categorias.*/
 	public Integer getId() {
 		return id;
 	}
@@ -81,5 +95,6 @@ public class Categoria implements Serializable {
 			return false;
 		return true;
 	}
+
 	
 }
