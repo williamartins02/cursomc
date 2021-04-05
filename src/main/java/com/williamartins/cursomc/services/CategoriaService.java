@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.williamartins.cursomc.domain.Categoria;
 import com.williamartins.cursomc.repositories.CategoriaRepository;
 
+/*serviço que oferece operação de consulta de categorias.  */
 @Service
 public class CategoriaService {
 
@@ -17,7 +18,7 @@ public class CategoriaService {
 
 	/*Operação para fazer uma busca no banco de dados atraves do ID da Categoria.*/
 	public Categoria buscar(Integer id) { 
-		 Optional<Categoria> obj = repo.findById(id); 
+		 Optional<Categoria> obj = repo.findById(id); /*findById = faz operação de busca de dados, com base no ID.*/
 		return obj.orElse(null); 
 	}
 
