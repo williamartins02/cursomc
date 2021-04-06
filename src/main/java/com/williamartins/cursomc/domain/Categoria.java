@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /*implementar o SERIALIZABLE 
  * é uma interface que diz que a class sendo implementada "categoria"
  *os objeto dela pode ser convertido com uma sequancia de byte,
@@ -27,8 +29,11 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
+	/*Dizendo pra tabela, o mapeamento feito na tabela produto "Muitos pra muitos"  é o mesmo pra categorias.*/
+	@JsonManagedReference /*essa anotação, digo o lado que quero os objeto associados.*/
 	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos = new ArrayList<>();
+	private List<Produto> produtos = new ArrayList<>();/*Criando associação da tabela "produto dentro da tabela categoria", 
+	para relacionamento.*/
 	
 	/*Criando um construtor vazio, ou seja com o construtor 
 	 * vazio estancio um objeto sem jogar nada os atributos */
@@ -40,7 +45,7 @@ public class Categoria implements Serializable {
 		this.id = id;
 		this.nome = nome;
 	}
-	/*Getters e Setters metodos de acesso ao atributos produtos, instaciado na class categoria..*/
+	/*Getters e Setters metodos de acesso ao atributos produtos, instaciado dentro da class categoria..*/
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -48,22 +53,20 @@ public class Categoria implements Serializable {
 		this.produtos = produtos;
 	}
 	
-	/*Getters e Setters metodos de acesso ao atributos Categorias.*/
+	/*Getters e Setters metodos de acesso ao atributos Categorias dentro do produto.*/
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
+	}/*Fim get e set Produtos*/
+	
 	
 	/*comparar os objeto com seus conteudo "Hascode".*/
 	@Override
@@ -71,7 +74,6 @@ public class Categoria implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 	@Override
@@ -88,13 +90,6 @@ public class Categoria implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
 		return true;
 	}
-
-	
 }

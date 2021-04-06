@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.williamartins.cursomc.domain.Categoria;
 import com.williamartins.cursomc.repositories.CategoriaRepository;
 
-/*serviço que oferece operação de consulta de categorias.  */
+import javassist.tools.rmi.ObjectNotFoundException;
+
+/*serviço que oferece operação de consulta de categorias com axulio do repository.  */
 @Service
 public class CategoriaService {
 
@@ -16,13 +18,11 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo; 
 
-	/*Operação para fazer uma busca no banco de dados atraves do ID da Categoria.*/
-	public Categoria buscar(Integer id) { 
+	/*Operação para fazer uma busca no banco de dados atraves do ID da Categoria e 
+	 mostra uma execessão caso o ID não existir..*/
+	public Categoria buscar(Integer id) throws ObjectNotFoundException { 
 		 Optional<Categoria> obj = repo.findById(id); /*findById = faz operação de busca de dados, com base no ID.*/
-		return obj.orElse(null); 
-	}
-
-	
-		
-	
+		return obj.orElseThrow(() -> new ObjectNotFoundException( 
+		 "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName())); 
+		}
 }
