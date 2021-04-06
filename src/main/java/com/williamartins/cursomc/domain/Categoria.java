@@ -30,7 +30,7 @@ public class Categoria implements Serializable {
 	private String nome;
 	
 	/*Dizendo pra tabela, o mapeamento feito na tabela produto "Muitos pra muitos"  é o mesmo pra categorias.*/
-	@JsonManagedReference /*essa anotação, digo o lado que quero os objeto associados.*/
+	@JsonManagedReference /*essa anotação, faço para o lado que quero os objeto associados..*/
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();/*Criando associação da tabela "produto dentro da tabela categoria", 
 	para relacionamento.*/

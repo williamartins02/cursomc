@@ -2,6 +2,11 @@ package com.williamartins.cursomc.resources.exception;
 
 import java.io.Serializable;
 
+/*
+ * 
+ *  Classe Auxiliadora  manipuladora de erros, informa o Status do erro. msg do erro e a hora do erro.
+ * 
+ * */
 public class StandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
