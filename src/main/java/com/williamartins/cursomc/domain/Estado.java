@@ -20,7 +20,7 @@ public class Estado implements Serializable {
 	private String nome;
 	
 	/*Fazendo mapeamentos reverso onde estado tem varias cidades. muitos pra um*/
-	@OneToMany(mappedBy = "estado")/* @OneToMany = Mostrando o atributo mappeado da class cidade, que é estado.*/
+	@OneToMany(mappedBy = "estado")/* O @OneToMany é o oposto do que o @ManyToOne, ou seja é o 1-para-muitos.*/
 	private List<Cidade> cidades = new ArrayList<>();
 	
 	public Estado() {}

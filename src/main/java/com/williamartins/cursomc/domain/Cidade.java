@@ -22,7 +22,7 @@ public class Cidade  implements Serializable {
 	private String nome;
 	
 	/* Associações.*/
-	@ManyToOne/*A anotação @OneToMany pode ser aplicada para tabela que contem muitos pra um no caso Cidades*/
+	@ManyToOne/*A anotação aplicada para tabela muitos-para-muitos */
 	@JoinColumn(name="estado_id")
 	private Estado estado;
 	
