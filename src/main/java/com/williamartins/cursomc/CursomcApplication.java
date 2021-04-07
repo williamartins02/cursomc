@@ -13,6 +13,7 @@ import com.williamartins.cursomc.domain.Cidade;
 import com.williamartins.cursomc.domain.Cliente;
 import com.williamartins.cursomc.domain.Endereco;
 import com.williamartins.cursomc.domain.Estado;
+import com.williamartins.cursomc.domain.ItemPedido;
 import com.williamartins.cursomc.domain.Pagamento;
 import com.williamartins.cursomc.domain.PagamentoComBoleto;
 import com.williamartins.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.williamartins.cursomc.repositories.CidadeRepository;
 import com.williamartins.cursomc.repositories.ClienteRepository;
 import com.williamartins.cursomc.repositories.EnderecoRepository;
 import com.williamartins.cursomc.repositories.EstadoRepository;
+import com.williamartins.cursomc.repositories.ItemPedidoRepository;
 import com.williamartins.cursomc.repositories.PagamentoRepository;
 import com.williamartins.cursomc.repositories.PedidoRepository;
 import com.williamartins.cursomc.repositories.ProdutoRepository;
@@ -56,6 +58,9 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -148,14 +153,16 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		clienteRepository.saveAll(Arrays.asList(cli1,cli2,cli3,cli4));
 		enderecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));
-/*=============================================================================================================================.*/
+/*====================================================================================================.*/
 		
 		/*Salvar pagamentos no banco e forma de pagamento...*/
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 		
-		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1); 
-		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2); 
+		Pedido ped1 = new Pedido(null, sdf.parse("01/04/202021 10:32"), cli1, e1); 
+		Pedido ped2 = new Pedido(null, sdf.parse("05/04/2021 19:35"), cli1, e2); 
+		Pedido ped3 = new Pedido(null, sdf.parse("07/04/2021 13:35"), cli4, e4);
+		Pedido ped4 = new Pedido(null, sdf.parse("02/04/2021 20:35"), cli3, e4);
 		 
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6); 
 		ped1.setPagamento(pagto1);  
@@ -164,18 +171,35 @@ public class CursomcApplication implements CommandLineRunner {
         Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null); 
         ped2.setPagamento(pagto2); 
         
+        Pagamento pagto3 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped3, 7); 
+      		ped3.setPagamento(pagto3);
+      		
+        Pagamento pagto4 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped4, 9); 
+		ped4.setPagamento(pagto4); 
+		
+		
+        
         cli1.getPedidos().addAll(Arrays.asList(ped1, ped2)); 
 		
-		pedidoRepository.saveAll(Arrays.asList(ped1, ped2)); 
-		pagamentoRepository.saveAll(Arrays.asList(pagto2, pagto2)); 
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2,ped3)); 
+		pagamentoRepository.saveAll(Arrays.asList(pagto2, pagto2, pagto3, pagto4)); 
 		
+/*====================================================================================================.*/
 		
+		/*SAlvando os pedidos no banco*/
+		 ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 200.00);
+		 ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 2, 80.00);
+		 ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		 
+		 ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		 ped2.getItens().addAll(Arrays.asList(ip3));
+		 
+		 p1.getItens().addAll(Arrays.asList(ip1));
+		 p1.getItens().addAll(Arrays.asList(ip3));
+		 p1.getItens().addAll(Arrays.asList(ip2));
 		
-		
-		
-		
-		
-		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
+/*====================================================================================================.*/
 		
 	}
 

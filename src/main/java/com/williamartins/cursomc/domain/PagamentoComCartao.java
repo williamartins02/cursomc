@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import com.williamartins.cursomc.domain.enums.EstadoPagamento;
 
 
-/*pagamentoComCartao extends class Pagamento, tornando uma superClass*/
+/*pagamentoComCartao extends class Pagamento, 
+esse class é uma subclasse, Herdando atributos da SuperClass "Pagamentos"
+*/
 @Entity
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;

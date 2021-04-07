@@ -1,10 +1,7 @@
 package com.williamartins.cursomc.domain;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -15,8 +12,8 @@ import javax.persistence.OneToOne;
 import com.williamartins.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)/*essa anotaça defini a class como PAI "Herança"
-as filhas é PgComCarta e PgComBoleto*/
+@Inheritance(strategy = InheritanceType.JOINED)/*essa anotaça defini a class como PAI SuperClasse "Herança"
+as filhas "SubClasse" é PgComCarta e PgComBoleto*/
 public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +33,7 @@ public abstract class Pagamento implements Serializable {
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado.getCod();
+		this.estado = estado.getCod();/*trabalhando com Intgeger fazer adaptação colocando getCod depois do atributo*/
 		this.pedido = pedido;
 	}
 
@@ -49,11 +46,11 @@ public abstract class Pagamento implements Serializable {
 	}
 
 	public EstadoPagamento getEstado() {
-		return EstadoPagamento.toEnum(estado);
+		return EstadoPagamento.toEnum(estado);/*colocando toEnum*/
 	}
 
 	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado.getCod();
+		this.estado = estado.getCod();/*colocando getCod, por trabalhar com Integer*/
 	}
 
 	public Pedido getPedido() {
