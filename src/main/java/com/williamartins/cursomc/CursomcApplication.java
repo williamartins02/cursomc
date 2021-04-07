@@ -76,6 +76,7 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));	
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
+/*=============================================================================================================================.*/
 		
 		/*adicionando estado e cidades.
 		 * quando é muitos pra um a associação faz dentro do construtor*/
@@ -105,6 +106,7 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2, est3, est4));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9));
+/*=============================================================================================================================.*/
 		
 		/*Salvando Cliente no banco de dados.*/
 		Cliente cli1 = new Cliente(null, "Dayane Silva","dadazinha00@gmail.com","699.897.680-13", TipoCliente.PESSOAFISICA);
@@ -121,15 +123,17 @@ public class CursomcApplication implements CommandLineRunner {
 		Endereco e2 = new Endereco(null, "Rua casa do ator", "294", "casa A", "Tagariuna","04546-001",cli2, c3);
 		Endereco e3 = new Endereco(null, "Rua Angra dos Reis", "151", "Sala A-21", "Penha","25485-001",cli3, c8);
 		Endereco e4 = new Endereco(null, "Rua das flores", "02", "Bloco-X1-00", "Martin","04577-021",cli4, c7);
-			
+		Endereco e5 = new Endereco(null, "Rua Luiz Belo Horizonte", "12", "GalpãoG1", "Jardim","34567-453",cli1, c1);
+		
 		cli1.getEnderecos().addAll(Arrays.asList(e1));
 		cli2.getEnderecos().addAll(Arrays.asList(e2));
 		cli3.getEnderecos().addAll(Arrays.asList(e3));
 		cli4.getEnderecos().addAll(Arrays.asList(e4));
+		cli1.getEnderecos().addAll(Arrays.asList(e5));
 		
 		clienteRepository.saveAll(Arrays.asList(cli1,cli2,cli3,cli4));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4));
-		
+		enderecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));
+/*=============================================================================================================================.*/
 	}
 	
 }
