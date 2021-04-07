@@ -33,14 +33,17 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
-	/* criando um conjunto de String evitando para ter repetição nessa coleção
+	/* 1 º criando um conjunto de String evitando para ter repetição nessa coleção
 	 * representando o telefone com um conjunto de String sem repetição*/
-	
-	/*A anotação @ElementCollection  é usada para mapear nossa entidade para uma lista de classes que não são 
+	/*2º A anotação @ElementCollection  é usada para mapear nossa entidade para uma lista de classes que não são 
 	 * entidades. serão armazenadas em uma tabela separada*/
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")/*criando a tabela separada para armazenamento do telefone.*/
 	private Set<String> telefones = new HashSet<>();
+	
+	/*QNDO HOUVER 1-PARA-MUITOS COM LISTA, USAR O @OneToMany*/
+	@OneToMany(mappedBy="cliente")/* O @OneToMany é o oposto do que o @ManyToOne, ou seja é o 1-para-muitos.*/
+	private List<Pedido> pedidos = new ArrayList<>(); /*Qndo for list NÃO colocar no construtor.*/
 	
 	public Cliente() {}
 
@@ -53,6 +56,13 @@ public class Cliente implements Serializable {
 		this.tipo = tipo.getCod();
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -137,4 +147,6 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 }
