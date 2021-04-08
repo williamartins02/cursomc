@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.williamartins.cursomc.domain.enums.TipoCliente;
 
@@ -42,6 +43,7 @@ public class Cliente implements Serializable {
 	private Set<String> telefones = new HashSet<>();
 	
 	/*QNDO HOUVER 1-PARA-MUITOS COM LISTA, USAR O @OneToMany*/
+	@JsonBackReference /*Pedido dos cliente não sera serealizados*/
 	@OneToMany(mappedBy="cliente")/* O @OneToMany é o oposto do que o @ManyToOne, ou seja é o 1-para-muitos.*/
 	private List<Pedido> pedidos = new ArrayList<>(); /*Qndo for list NÃO colocar no construtor.*/
 	

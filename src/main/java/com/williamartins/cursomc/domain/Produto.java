@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity /* <= Dizendo que a class é um dominio do jpa*/
 public class Produto  implements Serializable {
@@ -39,6 +40,7 @@ public class Produto  implements Serializable {
 	
 	/*Essa classe tera um conjunto de ItemPedido associado a ele.*/
 	/*colocando o "Set" para o java me garantir pra Ñ ter itens repetidos no mesmo pedido.*/
+	@JsonIgnore
 	@OneToMany(mappedBy ="id.produto")
 	 private Set<ItemPedido> itens = new HashSet<>();
 	
@@ -55,6 +57,7 @@ public class Produto  implements Serializable {
 	 * Um Produto conhece os pedidos dele, então criamos um getPedidos, 
 	 * farrendo os intens de pedido e motando uma lista de pedido associada a esses itens.
 	 * */
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 	   List<Pedido> lista = new ArrayList<>();//iniciiando uma lista de pedido
 	     for(ItemPedido x : itens) {//percorrendo a lista de itens que ja existe na classe.
