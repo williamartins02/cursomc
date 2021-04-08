@@ -28,17 +28,17 @@ public class CategoriaResource {
 	/*Metodo para busca o ID de uma categoria .
 	 * 
 	 * API REST pegar id*/
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) /*@PathVariable = pra mostra que a consulta vem do ID*/
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)//GET pegar algo
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) /*@PathVariable = pra mostra que a consulta vem do ID*/
 			throws ObjectNotFoundException { 
-		Categoria obj = service.buscar(id);/*indo no services pedindo para pegar a categoria que contem aquele ID*/
+		Categoria obj = service.find(id);/*indo no services pedindo para pegar a categoria que contem aquele ID*/
 		return ResponseEntity.ok().body(obj);	
 	}
 	
 	/*Metodo para receber uma categoria formato json, e inserir no banco de dados uma nova categoria. .
 	 * 
 	 * API REST usando codigo HTTP ResourceCreat201 com URI = pra pegar o novo recurso que foi inserido*/
-	@RequestMapping(method = RequestMethod.POST)//mappeando dentro da class Categoria.
+	@RequestMapping(method = RequestMethod.POST)//POST enviar dados.
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj){//@RequestBody faz que o json seja convertido para o obj java auto
 		obj = service.insert(obj);/*chamando um serviço que inseri essa nova categoria no banco de dados.*/
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()//
@@ -46,8 +46,13 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).build();/*Gerando a resposta do codigo 201 created*/
 	}
 	
-	
-	
+	/*Metodo para Atualização*/
+	@RequestMapping(value="/{id}", method= RequestMethod.PUT)/*PUT normalmente é usado para atualizar algo*/
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) throws ObjectNotFoundException{//Passando a categoria e o id que sera feito o update.
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 	
 	
 	

@@ -22,7 +22,7 @@ public class PedidoService {
 	/*Operação para fazer uma busca no banco de dados atraves do ID da Pedido e 
 	 mostra uma execessão caso o ID não existir..
 	 ObjectNotFoundException = lança um em todo de execessão casoo id não exista*/
-	public Pedido buscar(Integer id) 
+	public Pedido find(Integer id) 
 			 throws ObjectNotFoundException { 
 		
 		 Optional<Pedido> obj = repo.findById(id); /*findById = faz operação de busca de dados, com base no ID.*/

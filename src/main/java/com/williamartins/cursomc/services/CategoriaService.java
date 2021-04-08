@@ -21,7 +21,7 @@ public class CategoriaService {
 	/*Operação para fazer uma busca no banco de dados atraves do ID da Categoria e 
 	 mostra uma execessão caso o ID não existir..
 	 ObjectNotFoundException = lança um em todo de execessão casoo id não exista*/
-	public Categoria buscar(Integer id) 
+	public Categoria find(Integer id) 
 			 throws ObjectNotFoundException { 
 		 Optional<Categoria> obj = repo.findById(id); /*findById = faz operação de busca de dados, com base no ID.*/
 		return obj.orElseThrow(() -> new ObjectNotFoundException( "Objeto não encontrado! Id: " + id + ", Tipo: " 
@@ -35,7 +35,11 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
-	
+	/*Metodo para update para categoria usando o Repository*/
+	public Categoria update(Categoria obj) throws ObjectNotFoundException  {
+		find(obj.getId());//find busca o obj no banco, caso NÃO ache, ele da uma exceção/usando o find do buscar por ID
+		return repo.save(obj);
+	}
 	
 	
 	

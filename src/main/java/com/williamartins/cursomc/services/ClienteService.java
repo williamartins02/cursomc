@@ -21,7 +21,7 @@ public class ClienteService {
 	/*Operação para fazer uma busca no banco de dados atraves do ID da Cliente e 
 	 mostra uma execessão caso o ID não existir..
 	 ObjectNotFoundException = lança um em todo de execessão casoo id não exista*/
-	public Cliente buscar(Integer id) 
+	public Cliente find(Integer id) 
 			 throws ObjectNotFoundException { 
 		
 		 Optional<Cliente> obj = repo.findById(id); /*findById = faz operação de busca de dados, com base no ID.*/

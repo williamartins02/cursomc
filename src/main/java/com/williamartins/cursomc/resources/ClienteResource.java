@@ -23,10 +23,10 @@ public class ClienteResource {
 	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) /*@PathVariable = pra mostra que a consulta vem do ID*/
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) /*@PathVariable = pra mostra que a consulta vem do ID*/
 			throws ObjectNotFoundException { 
 		
-		Cliente obj = service.buscar(id);/*indo no services pedindo para pegar a categoria que contem aquele ID*/
+		Cliente obj = service.find(id);/*indo no services pedindo para pegar a categoria que contem aquele ID*/
 		return ResponseEntity.ok().body(obj);	
 	}
 }
