@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity /* <= Dizendo que a class é um dominio do jpa*/
@@ -29,7 +28,7 @@ public class Produto  implements Serializable {
 	private Double preco;
 	
 	/*mapeando o relacioanamentos das tabela Produto/Categoria. criando uma tabela auxiliar de muitos para muitos entre as tabelas.*/
-	@JsonBackReference   /*Ele entende q do outro lado ja foi  associado osobj, ele não busca mais.*/
+	@JsonIgnore/*Ele entende q do outro lado ja foi  associado osobj, ele não busca mais.*/
 	@ManyToMany  /*<= Qndo houver duas ou mais lista precisa usar o anotação @ManyToMany*/
 	@JoinTable( name = "PRODUTO_CATEGORIA",/*<= "JoinTable"Essa anotação defini uma Tabela "auxiliar" q vai fazer "Ligação" de  Muitos pra muitos no bd relacional */
 	   joinColumns = @JoinColumn(name= "produto_id"),/*<=> definindo o nome do campo da tabela correspondente ao codigo do produto ou seja "Chave estrangeira."   */
