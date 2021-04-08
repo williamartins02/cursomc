@@ -23,9 +23,20 @@ public class CategoriaService {
 	 ObjectNotFoundException = lança um em todo de execessão casoo id não exista*/
 	public Categoria buscar(Integer id) 
 			 throws ObjectNotFoundException { 
-		
 		 Optional<Categoria> obj = repo.findById(id); /*findById = faz operação de busca de dados, com base no ID.*/
 		return obj.orElseThrow(() -> new ObjectNotFoundException( "Objeto não encontrado! Id: " + id + ", Tipo: " 
 		     + Categoria.class.getName())); 
 		}
+	
+	/*Metodo para inserir uma categoria usando o Repository
+	 * tem objetivo de retorna o repo e salvar*/
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);/*o obj novo ser inserido tem que ter o id null, se tiver valendo alguma coisa, save considera como atualização NÂO inserção. */
+		return repo.save(obj);
+	}
+	
+	
+	
+	
+	
 }

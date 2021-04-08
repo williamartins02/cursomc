@@ -28,12 +28,12 @@ public class Categoria implements Serializable {
 	private String nome;
 	
 	/*Dizendo pra tabela, o mapeamento feito na tabela produto "Muitos pra muitos"  é o mesmo pra categorias.*/
-	@ManyToMany(mappedBy="categorias")
+	@ManyToMany(mappedBy="categorias")/**/
 	private List<Produto> produtos = new ArrayList<>();/*Criando associação da tabela "produto dentro da tabela categoria", 
-	para relacionamento.*/
+	para relacionamento para uma lista .*/
 	
 	/*Criando um construtor vazio, ou seja com o construtor 
-	 * vazio estancio um objeto sem jogar nada os atributos */
+	 * vazio estancio um objeto sem jogar nada nos atributos */
 	public Categoria() {
 	}
 	/*criando um construtor para povoar os dados do atributos*/
