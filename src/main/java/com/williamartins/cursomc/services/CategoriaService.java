@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.williamartins.cursomc.domain.Categoria;
@@ -58,5 +61,17 @@ public class CategoriaService {
 	public List<Categoria> findAll(){
 		return repo.findAll();
 	}
+	
+	/*Metodo para Paginar categoria usando o Repository
+	 * qunatidade de paginas, de linhas e qual atruibuto ordenar "ID ou nome etc..."*/
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), 
+				orderBy);//fazer uma consulta para retornar uma pagina de dados.
+		return repo.findAll(pageRequest);
+	}
+	
+	
+	
+	
 	
 }
