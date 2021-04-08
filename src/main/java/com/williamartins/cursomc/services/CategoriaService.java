@@ -3,10 +3,12 @@ package com.williamartins.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.williamartins.cursomc.domain.Categoria;
 import com.williamartins.cursomc.repositories.CategoriaRepository;
+import com.williamartins.cursomc.services.exception.DataIntegrityException;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -39,6 +41,17 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) throws ObjectNotFoundException  {
 		find(obj.getId());//find busca o obj no banco, caso NÃO ache, ele da uma exceção/usando o find do buscar por ID
 		return repo.save(obj);
+	}
+	/*Metodo para Deletar para categoria usando o Repository*/
+	public void delete(Integer id) throws ObjectNotFoundException {
+		find(id);//find busca o obj no banco, caso NÃO ache, ele da uma exceção/usando o find do buscar por ID
+		
+		try {
+		 repo.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");//importando execeção personalizada "minha"
+			
+		}
 	}
 	
 	

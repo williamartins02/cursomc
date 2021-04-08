@@ -53,7 +53,11 @@ public class CategoriaResource {
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	
-	
+	/*Metodo para Deletar*/
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void>delte(@PathVariable Integer id) throws ObjectNotFoundException{
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
 	
 }
