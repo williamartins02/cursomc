@@ -1,5 +1,6 @@
 package com.williamartins.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,9 @@ public class CategoriaService {
 			
 		}
 	}
-	
-	
+	/*Metodo para Listar categoria usando o Repository*/
+	public List<Categoria> findAll(){
+		return repo.findAll();
+	}
 	
 }
