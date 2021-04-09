@@ -1,5 +1,6 @@
 package com.williamartins.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.williamartins.cursomc.domain.Cliente;
 import com.williamartins.cursomc.dto.ClienteDTO;
+import com.williamartins.cursomc.dto.ClienteNewDTO;
 import com.williamartins.cursomc.services.ClienteService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -38,9 +41,20 @@ public class ClienteResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) 
 			throws ObjectNotFoundException { 
-		
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);	
+	}
+	
+	/*Metodo para receber uma categoria formato json, e inserir no banco de dados uma nova categoria. .
+	 * API REST usando codigo HTTP ResourceCreat201 com URI = pra pegar o novo recurso que foi inserido*/
+	@RequestMapping(method = RequestMethod.POST)//POST enviar dados.
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){
+		Cliente obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+          
+		return ResponseEntity.created(uri).build();
 	}
 	
 	/*Metodo para Atualização*/
