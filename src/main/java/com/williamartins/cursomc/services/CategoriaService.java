@@ -17,6 +17,9 @@ import com.williamartins.cursomc.services.exception.DataIntegrityException;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
+/*BEM VINDO AO PACOTE SERVICE "DAO" ATRAVES DA REQUISIÇÃO DO USUARIO, ELE FAZ AS AÇÕES DENTRO DO BANCO DE DADOS.
+ * PERSISTENCIA DE DADOS COM O BANCO DE DADOS.*/
+		
 /*serviço que oferece operação de consulta de categorias com axulio do repository.  */
 @Service
 public class CategoriaService {
@@ -34,6 +37,7 @@ public class CategoriaService {
 		     + Categoria.class.getName())); 
 		}
 	
+	
 	/*Metodo para inserir uma categoria usando o Repository
 	 * tem objetivo de retorna o repo e salvar*/
 	public Categoria insert(Categoria obj) {
@@ -41,11 +45,22 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
-	/*Metodo para update para categoria usando o Repository*/
+	
+	/*Metodo para atualizar categoria usando o Repository
+	 * e ataulizar clinte apartir do banco de dados.*/
 	public Categoria update(Categoria obj) throws ObjectNotFoundException  {
-		find(obj.getId());//find busca o obj no banco, caso NÃO ache, ele da uma exceção/usando o find do buscar por ID
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());//find busca o obj no banco, caso NÃO ache, ele da uma exceção/usando o find do buscar por ID
+		updateData(newObj, obj);//metodo auxiliar/ou seja att os dados desse novo objteo com base como veio como arguemtno
+		return repo.save(newObj);// e da um save no novo objeto atualizado
 	}
+	/*Metodo "Atualizar" q busca todos os dados no BD com "newObj" existente 
+	 * se caso for atualizar novos valores fornecido, da um update nos dados para o BD com "obj" */
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());	
+	}
+	
+	
+	
 	/*Metodo para Deletar para categoria usando o Repository*/
 	public void delete(Integer id) throws ObjectNotFoundException {
 		find(id);//find busca o obj no banco, caso NÃO ache, ele da uma exceção/usando o find do buscar por ID
@@ -57,10 +72,13 @@ public class CategoriaService {
 			
 		}
 	}
+	
+	
 	/*Metodo para Listar categoria usando o Repository*/
 	public List<Categoria> findAll(){
 		return repo.findAll();
 	}
+	
 	
 	/*Metodo para Paginar categoria usando o Repository
 	 * qunatidade de paginas, de linhas e qual atruibuto ordenar "ID ou nome etc..."*/
@@ -69,6 +87,7 @@ public class CategoriaService {
 				orderBy);//fazer uma consulta para retornar uma pagina de dados.
 		return repo.findAll(pageRequest);
 	}
+	
 	
 	/*Metodo auxiliar que instancia uma categoria apartir de um DTO*/
 	public Categoria fromDTO(CategoriaDTO objDto) {

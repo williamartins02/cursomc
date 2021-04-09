@@ -21,6 +21,11 @@ import com.williamartins.cursomc.services.ClienteService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
+/*BEM VINDO AO PACOTE RESOURCE "CONTROLLER" VALIDA AS INFORMAÇÕES ENCIMA DA REQUISIÇÃO DO USUARIOS
+ * PRÉ VALIDAÇÃO E PRÉ ANOTAÇÕES PARA O CONTROLLER..*/
+		
+/*Pacote Resource tem a funcionalidade de um Controller onde valida as requisições do usuario*/
+
 /*mapeando Cliente e o ID
  * END POINT*/
 @RestController

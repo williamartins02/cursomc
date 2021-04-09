@@ -17,6 +17,9 @@ import com.williamartins.cursomc.services.exception.DataIntegrityException;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
+/*BEM VINDO AO PACOTE SERVICE "DAO" ATRAVES DA REQUISIÇÃO DO USUARIO, ELE FAZ AS AÇÕES DENTRO DO BANCO DE DADOS.
+ * PERSISTENCIA DE DADOS COM O BANCO DE DADOS.*/
+
 /*serviço que oferece operação de consulta de categorias com axulio do repository.  */
 @Service
 public class ClienteService {
@@ -28,12 +31,10 @@ public class ClienteService {
 	/*Operação para fazer uma busca no banco de dados atraves do ID da Cliente e 
 	 mostra uma execessão caso o ID não existir..
 	 ObjectNotFoundException = lança um em todo de execessão casoo id não exista*/
-	public Cliente find(Integer id) 
-			 throws ObjectNotFoundException { 
-		
+	public Cliente find(Integer id) throws ObjectNotFoundException { 
 		 Optional<Cliente> obj = repo.findById(id); /*findById = faz operação de busca de dados, com base no ID.*/
-		return obj.orElseThrow(() -> new ObjectNotFoundException( "Objeto não encontrado! Id: " + id + ", Tipo: " 
-		     + Cliente.class.getName())); 
+		   return obj.orElseThrow(() -> new ObjectNotFoundException( "Objeto não encontrado! Id: " + id + ", Tipo: " 
+		        + Cliente.class.getName())); 
 		}
 	
 	/*Metodo para inserir uma categoria usando o Repository
@@ -42,6 +43,8 @@ public class ClienteService {
 		obj.setId(null);
 		return repo.save(obj);
 	}
+	
+	
 	
 	/*Metodo para atualizar categoria usando o Repository
 	 * e ataulizar clinte apartir do banco de dados.*/
@@ -56,6 +59,8 @@ public class ClienteService {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
+	
+	
 
 	/*Metodo para Deletar para categoria usando o Repository*/
 	public void delete(Integer id) throws ObjectNotFoundException {
@@ -64,14 +69,16 @@ public class ClienteService {
 		try {
 		 repo.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir porque há entidades relacioandas!");//importando execeção personalizada "minha"
-			
+			throw new DataIntegrityException("Não é possível excluir porque há entidades relacioandas!");//importando execeção personalizada "minha"	
 		}
 	}
+	
+	
 	/*Metodo para Listar categoria usando o Repository*/
 	public List<Cliente> findAll(){
 		return repo.findAll();
 	}
+	
 	
 	/*Metodo para Paginar categoria usando o Repository
 	 * qunatidade de paginas, de linhas e qual atruibuto ordenar "ID ou nome etc..."*/
@@ -81,7 +88,10 @@ public class ClienteService {
 		return repo.findAll(pageRequest);
 	}
 	
-	/*Metodo auxiliar que instancia uma Cliente apartir de um DTO*/
+	
+	
+	/*Metodo auxiliar que instancia uma Cliente apartir de um DTO,
+	 * ele não instancia do banco de dados, intacia um cliente colocando nulo onde que tiver que colocar*/
 	public Cliente fromDTO(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}

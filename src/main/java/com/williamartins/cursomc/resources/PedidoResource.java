@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.williamartins.cursomc.domain.Categoria;
+
 import com.williamartins.cursomc.domain.Pedido;
 import com.williamartins.cursomc.services.PedidoService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
+
+/*BEM VINDO AO PACOTE RESOURCE "CONTROLLER" VALIDA AS INFORMAÇÕES ENCIMA DA REQUISIÇÃO DO USUARIOS
+ * PRÉ VALIDAÇÃO E PRÉ ANOTAÇÕES PARA O CONTROLLER..*/
 
 /*mapeando categoria e o ID, fazendo cosulta e trazendo por ID
  * END POINT*/

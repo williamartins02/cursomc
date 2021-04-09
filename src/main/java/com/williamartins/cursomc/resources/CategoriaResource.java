@@ -23,6 +23,9 @@ import com.williamartins.cursomc.services.CategoriaService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
+/*BEM VINDO AO PACOTE RESOURCE "CONTROLLER" VALIDA AS INFORMAÇÕES ENCIMA DA REQUISIÇÃO DO USUARIOS
+ * PRÉ VALIDAÇÃO E PRÉ ANOTAÇÕES PARA O CONTROLLER..*/
+
 /*mapeando categoria e o ID, fazendo cosulta e trazendo por ID
  * END POINT*/
 @RestController
@@ -43,7 +46,6 @@ public class CategoriaResource {
 	}
 	
 	/*Metodo para receber uma categoria formato json, e inserir no banco de dados uma nova categoria. .
-	 * 
 	 * API REST usando codigo HTTP ResourceCreat201 com URI = pra pegar o novo recurso que foi inserido*/
 	@RequestMapping(method = RequestMethod.POST)//POST enviar dados.
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto){//@RequestBody faz que o json seja convertido para o obj java auto
