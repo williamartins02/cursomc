@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.williamartins.cursomc.domain.Categoria;
+import com.williamartins.cursomc.dto.CategoriaDTO;
 import com.williamartins.cursomc.repositories.CategoriaRepository;
 import com.williamartins.cursomc.services.exception.DataIntegrityException;
 
@@ -70,8 +71,10 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
-	
-	
+	/*Metodo auxiliar que instancia uma categoria apartir de um DTO*/
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
+	}
 	
 	
 }

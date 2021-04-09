@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -44,16 +46,17 @@ public class CategoriaResource {
 	 * 
 	 * API REST usando codigo HTTP ResourceCreat201 com URI = pra pegar o novo recurso que foi inserido*/
 	@RequestMapping(method = RequestMethod.POST)//POST enviar dados.
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj){//@RequestBody faz que o json seja convertido para o obj java auto
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto){//@RequestBody faz que o json seja convertido para o obj java auto
+		Categoria obj = service.fromDTO(objDto);//converte um obje dto para obj Entity
 		obj = service.insert(obj);/*chamando um serviço que inseri essa nova categoria no banco de dados.*/
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()//
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();/*Gerando a resposta do codigo 201 created*/
 	}
 	
 	/*Metodo para Atualização*/
 	@RequestMapping(value="/{id}", method= RequestMethod.PUT)/*PUT normalmente é usado para atualizar algo*/
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) throws ObjectNotFoundException{//Passando a categoria e o id que sera feito o update.
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) throws ObjectNotFoundException{//Passando a categoria e o id que sera feito o update.
+		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
