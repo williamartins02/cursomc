@@ -7,7 +7,7 @@ import java.util.List;
 public class ValidationError extends StandardError {
 	private static final long serialVersionUID = 1L;
 	
-	/*Alem de herda os dados vai ter tambem a lista de Messagem */
+	/*Alem de herda os dados tambem a lista de Messagem */
 	private List<FieldMessage> errors = new ArrayList<>();
 	
 	
