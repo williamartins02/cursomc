@@ -2,8 +2,9 @@ package com.williamartins.cursomc.resources.exception;
 
 import java.io.Serializable;
 
-/*Calsse auxiliar para carregar nomes e campo do erro
- * quando der erro de "Preenchimento obrigatorio" e "caracteres"*/
+/*Classe auxiliar para carregar nomes e campo do erro
+ * quando der erro de "Preenchimento obrigatorio" e "caracteres"
+ * validar cpf ou cnpj, email, emitindo. realatorio dos erros*/
 public class FieldMessage  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
