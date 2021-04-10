@@ -47,17 +47,16 @@ public class ClienteService {
 		        + Cliente.class.getName())); 
 		}
 	
-	/*Metodo para inserir uma categoria usando o Repository
-	 * tem objetivo de retorna o repo e salvar*/
+	/*Metodo para inserir um CLiente novo atraves do metodo DTO*/
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
-		enderecoRepository.saveAll(obj.getEnderecos());
+		enderecoRepository.saveAll(obj.getEnderecos());//pega os end anexado aou obj cliente, chamando a lista de end.
 		return obj;
 	}
 	
-	
+
 	/*Metodo para atualizar categoria usando o Repository
 	 * e ataulizar clinte apartir do banco de dados.*/
 	public Cliente update(Cliente obj) throws ObjectNotFoundException  {
@@ -74,14 +73,14 @@ public class ClienteService {
 	
 	
 
-	/*Metodo para Deletar para categoria usando o Repository*/
+	/*Metodo para Deletar categoria usando o Repository*/
 	public void delete(Integer id) throws ObjectNotFoundException {
 		find(id);//find busca o obj no banco, caso NÃO ache, ele da uma exceção/usando o find do buscar por ID
 		
 		try {
 		 repo.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir porque há entidades relacioandas!");//importando execeção personalizada "minha"	
+			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacioandas!");//importando execeção personalizada "minha"	
 		}
 	}
 	
@@ -100,15 +99,16 @@ public class ClienteService {
 		return repo.findAll(pageRequest);
 	}
 	
-	
+	/*METODO fromDTO */
 	
 	/*Metodo auxiliar que instancia uma Cliente apartir de um DTO,
 	 * ele não instancia do banco de dados, intacia um cliente colocando nulo onde que tiver que colocar*/
 	public Cliente fromDTO(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}
-	/*Metodo auxiliar que instancia uma Cliente apartir de um DTO,
-	 * ele não instancia do banco de dados, intacia um cliente colocando nulo onde que tiver que colocar*/
+	
+	/*Metodo auxiliar que instancia um Cliente, cidade, endereço e telefones apartir de um DTO e cadastra um novo cliente.
+	 * usando tabela existente para cadastra um novo cliente.*/
 	public Cliente fromDTO(ClienteNewDTO objDto) {
 		
 		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), 
@@ -117,9 +117,10 @@ public class ClienteService {
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), 
 				objDto.getBairro(), objDto.getCep(), cli, cid);
 		
-		cli.getEnderecos().add(end);
+		cli.getEnderecos().add(end);//assosição para pegar os end anexado.
+		
 		cli.getTelefones().add(objDto.getTelefone1());
-		//talvez se quiser adicionar telefone2 e 3
+		//se quiser adicionar telefone2 e 3
 		if (objDto.getTelefone2()!=null) {
 			cli.getTelefones().add(objDto.getTelefone2());
 		}
@@ -129,4 +130,5 @@ public class ClienteService {
 		
 		return cli;
 	}
+
 }

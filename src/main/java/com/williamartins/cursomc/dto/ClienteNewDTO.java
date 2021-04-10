@@ -7,18 +7,20 @@ import java.io.Serializable;
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
+	/*atributos da class cliente*/
 	private String nome;
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	/*atributos da class Enderecço*/
 	private String logradouro;
 	private String numero;
 	private String complemento;
 	private String bairro;
 	private String cep;
 	
+	/*atributos da class Telefone*/
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;

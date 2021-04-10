@@ -45,15 +45,14 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(obj);	
 	}
 	
-	/*Metodo para receber uma categoria formato json, e inserir no banco de dados uma nova categoria. .
-	 * API REST usando codigo HTTP ResourceCreat201 com URI = pra pegar o novo recurso que foi inserido*/
-	@RequestMapping(method = RequestMethod.POST)//POST enviar dados.
+	/*Metodo para inserir um novo cliente usando o DTO*/
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){
 		Cliente obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-          
+		
 		return ResponseEntity.created(uri).build();
 	}
 	
