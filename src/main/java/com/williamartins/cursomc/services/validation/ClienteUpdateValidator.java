@@ -1,45 +1,47 @@
 package com.williamartins.cursomc.services.validation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerMapping;
 
 import com.williamartins.cursomc.domain.Cliente;
-import com.williamartins.cursomc.domain.enums.TipoCliente;
-import com.williamartins.cursomc.dto.ClienteNewDTO;
+import com.williamartins.cursomc.dto.ClienteDTO;
 import com.williamartins.cursomc.repositories.ClienteRepository;
 import com.williamartins.cursomc.resources.exception.FieldMessage;
-import com.williamartins.cursomc.services.validation.utils.BR;
 
 /*Metodo auxiliar para validação para a anotações*/
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 	@Override
-	public void initialize(ClienteInsert ann) {
+	public void initialize(ClienteUpdate ann) {
 	}
 	
 	//instanciando o respository do cliente.
 	@Autowired
 	private ClienteRepository repo;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	@Override
-	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
+		
+		/*condigo para pega id de cliente "exemplo : cliente/2" passando pela URL*/
+		@SuppressWarnings("unchecked")
+		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		Integer uriId = Integer.parseInt(map.get("id"));//FIm
 		
 		List<FieldMessage> list = new ArrayList<>();
 
-		/*Verificando o cpf ou cnpj, e programado as messagem de erro.*/
-		if(objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCpf(objDto.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
-		} 
-		if(objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCnpj(objDto.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
-		} //fim
-		
-		/*Logica pra testar se o e-mail do cliente ja existe */
+		/*Logica para verificar, se ao cadastra um novo cliente, verificar se ja existe um email de outro cliente
+		 * no banco de dados, se houver da a menssagem*/
 		Cliente aux = repo.findByEmail(objDto.getEmail());
-		if (aux != null) {
+		if (aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("email","E-mail já Existente"));
 		}
 		

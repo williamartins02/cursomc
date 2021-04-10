@@ -10,13 +10,13 @@ import javax.validation.Payload;
 
 /* Criaçao da a anotação customizada @ClienteInsert*/
 
-@Constraint(validatedBy = ClienteInsertValidator.class)
+@Constraint(validatedBy = ClienteUpdateValidator.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 
 /* Validação personalizada; */
 
-public @interface ClienteInsert {
+public @interface ClienteUpdate {
 		String message() default "Erro de validação";
 	
 		Class<?>[] groups() default {};
