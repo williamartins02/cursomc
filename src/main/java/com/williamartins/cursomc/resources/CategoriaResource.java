@@ -36,7 +36,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	/*Metodo para busca o ID de uma categoria .
-	 * 
+	 //EndPoint para criar busca por ID 
 	 * API REST pegar id*/
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)//GET pegar algo
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) /*@PathVariable = pra mostra que a consulta vem do ID*/
@@ -81,7 +81,8 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	/*Metodo Paginação */
+	/*Metodo Paginação que faz busca por categorias 
+	 *  O sistema informa os nomes de todas categorias ordenadamente*/
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 

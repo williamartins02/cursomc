@@ -25,21 +25,21 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 	@Autowired
 	private ClienteRepository repo;
 	
+	//tem a funcçao que permiti opter o prametro da URi "URl"
 	@Autowired
 	private HttpServletRequest request;
 
 	@Override
 	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
 		
-		/*condigo para pega id de cliente "exemplo : cliente/2" passando pela URL*/
+		/*condigo para pega id de cliente ja cadastrado no bd "exemplo : cliente/2" passando pela URL*/
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		Integer uriId = Integer.parseInt(map.get("id"));//FIm
 		
 		List<FieldMessage> list = new ArrayList<>();
 
-		/*Logica para verificar, se ao cadastra um novo cliente, verificar se ja existe um email de outro cliente
-		 * no banco de dados, se houver da a menssagem*/
+		/*Logica que faz verificação de email ja existente no bD, e  compara com o insert do novo cliente*/
 		Cliente aux = repo.findByEmail(objDto.getEmail());
 		if (aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("email","E-mail já Existente"));

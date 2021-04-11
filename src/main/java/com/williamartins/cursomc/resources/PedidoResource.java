@@ -24,7 +24,7 @@ public class PedidoResource {
 	
 	@Autowired /*instacia automaticamente esse objeto..*/
 	private PedidoService service;
-	
+	//EndPoint para criar busca por ID
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Pedido> find(@PathVariable Integer id) /*@PathVariable = pra mostra que a consulta vem do ID*/
 			throws ObjectNotFoundException { 

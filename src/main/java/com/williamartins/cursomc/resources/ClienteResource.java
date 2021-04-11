@@ -37,7 +37,7 @@ public class ClienteResource {
 	
 	@Autowired /*instacia automaticamente esse objeto..*/
 	private ClienteService service;
-	
+	//EndPoint para criar busca por ID
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) 
 			throws ObjectNotFoundException { 

@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import com.williamartins.cursomc.domain.Cliente;
 import com.williamartins.cursomc.services.validation.ClienteUpdate;
 
-@ClienteUpdate //anotação que faz verificação de email ja existente no bD
+@ClienteUpdate //anotação que faz verificação de email ja existente no bD compara com o insert do novo cliente
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
