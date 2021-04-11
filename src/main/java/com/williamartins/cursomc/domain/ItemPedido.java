@@ -35,6 +35,11 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 	
+	/*Metodo para calcular subtotal  dos pedidos*/
+	public double getSubTotal() {
+		return (preco - desconto) * quantidade;
+	}
+	
 	/*CRiando os set do Produto e Pedido.
 	 * para ter acesso a esses atributos fora da classe ItemPedido*/
 	@JsonIgnore /*tudo que começa com "get" tem que ignorar para não fazer serialização ciclica*/
