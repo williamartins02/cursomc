@@ -2,6 +2,7 @@ package com.williamartins.cursomc.domain;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.williamartins.cursomc.domain.enums.EstadoPagamento;
 
 
@@ -9,6 +10,7 @@ import com.williamartins.cursomc.domain.enums.EstadoPagamento;
 esse class é uma subclasse, Herdando atributos da SuperClass "Pagamentos"
 */
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	

@@ -11,11 +11,12 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.williamartins.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)/*essa anotaça defini a class como PAI SuperClasse "Herança"
-as filhas "SubClasse" é PgComCarta e PgComBoleto*/
+@Inheritance(strategy = InheritanceType.JOINED)/*essa anotaça defini a class como PAI SuperClasse "Herança"as filhas "SubClasse" é PgComCarta e PgComBoleto*/
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")//Essa anotação esta dizendo que minha class pagamento vai ter um campo adicional @type
 public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -46,8 +46,18 @@ public class ItemPedido implements Serializable {
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
+	/*Metodo para criar as associação de pedido/isntancia novo intem pedido e assoaciar esse novo intem 
+	de pedido*/
+	public void setPedido(Pedido pedido) {
+		id.setPedido(pedido);
+	}
 	public Produto getProduto() {
 		return id.getProduto();
+	}
+	/*Metodo para criar as associação dos produtos/isntancia novo intem pedido e assoaciar esse novo intem 
+	de pedido, tem que implemntar o setProduto*/
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
 	}
 	
 	
