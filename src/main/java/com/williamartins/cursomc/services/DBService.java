@@ -70,6 +70,7 @@ public class DBService {
 				Categoria cat5 = new Categoria(null, "Jardinagem");
 				Categoria cat6 = new Categoria(null, "DEcoração");
 				Categoria cat7 = new Categoria(null, "Perfumaria");
+		
 				
 				
 				Produto p1 = new Produto (null, "Computador", 2000.00);
@@ -171,7 +172,7 @@ public class DBService {
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 				
-				Pedido ped1 = new Pedido(null, sdf.parse("01/04/202021 10:32"), cli1, e1); 
+				Pedido ped1 = new Pedido(null, sdf.parse("01/04/2021 10:32"), cli1, e1); 
 				Pedido ped2 = new Pedido(null, sdf.parse("05/04/2021 19:35"), cli1, e2); 
 				Pedido ped3 = new Pedido(null, sdf.parse("07/04/2021 13:35"), cli4, e4);
 				Pedido ped4 = new Pedido(null, sdf.parse("02/04/2021 20:35"), cli3, e4);
