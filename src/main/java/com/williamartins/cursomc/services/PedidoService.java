@@ -41,6 +41,9 @@ public class PedidoService {
 
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private EmailService emailService;
 
 
 	/*
@@ -82,7 +85,7 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());// apos percorrer a lista, salvar o pedido no BD
-		System.out.println(obj);//imprimindo o pedido
+		emailService.sendOrderConfirmationEmail(obj);//Confirmação dos email.
 		return obj;
 	}
 }
