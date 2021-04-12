@@ -38,11 +38,11 @@ public class ProdutoService {
 		     + Produto.class.getName())); 
 		}
 	
-	//Operação para fazer busca de produto paginada.
+	//Operação "SEARCH" para fazer busca de Categoias e produto paginada.
 	public Page<Produto> search(String nome, List<Integer> ids,Integer page, Integer linesPerPage,String orderBy, 
 			String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
-		
+		//buscanco uma Lista no BD categorias existente por ID
 		List<Categoria> categorias = categoriaRepository.findAllById(ids);
 		return repo.search(nome, categorias, pageRequest);
 	}

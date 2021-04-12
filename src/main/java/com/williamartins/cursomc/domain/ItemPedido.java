@@ -34,7 +34,6 @@ public class ItemPedido implements Serializable {
 		this.quantidade = quantidade;
 		this.preco = preco;
 	}
-	
 	/*Metodo para calcular subtotal  dos pedidos*/
 	public double getSubTotal() {
 		return (preco - desconto) * quantidade;

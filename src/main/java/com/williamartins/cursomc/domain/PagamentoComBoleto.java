@@ -11,12 +11,13 @@ import com.williamartins.cursomc.domain.enums.EstadoPagamento;
 /*pagamentoComBoleto extends class Pagamento, 
  * esse class é uma subclasse, Herdando atributos da SuperClass "Pagamentos".*/
 @Entity
-@JsonTypeName("pagamentoComBoleto")
+@JsonTypeName("pagamentoComBoleto")//Subclasse que define um valor adicional.
 public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	
 	@JsonFormat(pattern = "dd/MM/yyy") /*Formatando a data e hora*/
 	private Date dataVencimento;
+	
 	@JsonFormat(pattern = "dd/MM/yyy") /*Formatando a data e hora*/
 	private Date dataPagamento;
 

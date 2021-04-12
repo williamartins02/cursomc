@@ -52,23 +52,26 @@ public class PedidoService {
 
 	/* Metodo para inserir um novo pedido */
 	public Pedido insert(Pedido obj) throws ObjectNotFoundException {
-		obj.setId(null);
-		obj.setInstante(new Date());
-		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
-		obj.getPagamento().setPedido(obj);
+		//setando os obj
+		obj.setId(null);//id do pedido
+		obj.setInstante(new Date());//cria uma nova data com o instante "data" atual 
+		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);//Um pedido q esta sendo inserindo o pagamento tem que ser pendente
+		obj.getPagamento().setPedido(obj);//Associação de mão dupla, pagamento tem que conhecer o pedido dele.
 		
-		// criando uma data de vencimento do boleto.
-		if (obj.getPagamento() instanceof PagamentoComBoleto) {// se o pagamento for pagamento com boleto
-			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();// gerar uma data pra ele.
-			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
+		// criando uma data de vencimento ser for paga com boleto.
+		// se o pagamento for pagamento com boleto, gera uma data pra ele.
+		if (obj.getPagamento() instanceof PagamentoComBoleto) {
+			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
+			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());// preencher no boleto a data do vencimento
 		}
 		obj = repo.save(obj);//salvou o pedido no banco.
 		pagamentoRepository.save(obj.getPagamento());//salvando o pagamento 
 		
-		//percorrendo toda lista de pedido associada ao objeto "obj" 
+		/*Apos inserir e gerar o pagamento, percorrer a lista dos pedido fazer a contagem e salvar no banco de dados.*/
+		/*percorrendo toda lista de pedido associada ao objeto "obj" */
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());//Buscando no BD o produto para copiar o preco dele.
+			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());//Buscando no BD o produto para copiar o preço dele.
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());// apos percorrer a lista, salvar o pedido no BD

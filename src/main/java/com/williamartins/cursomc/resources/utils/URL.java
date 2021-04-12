@@ -8,7 +8,9 @@ import java.util.List;
 //class auxiliar
 public class URL {
 
-	// metodo para descodificar um paramentro
+	/*metodo para descodificar um paramentro na url
+	 * usa caracteres especial para compor string vazias, exemplo:
+	 * Tv Led => com ecode Tv%20Led*/
 	public static String decodeParam(String s) {
 		try {
 			return URLDecoder.decode(s, "UTF-8");
@@ -24,7 +26,7 @@ public class URL {
 	public static List<Integer> decodeIntList(String s) {
 		String[] vet = s.split(",");// split quebra a string em pedaçinho de acordo com o parametro q passou
 		List<Integer> list = new ArrayList<>();
-		for (int i = 0; i < vet.length; i++) {
+		for (int i = 0; i < vet.length; i++) {//for prar percorrer o vetor.
 			list.add(Integer.parseInt(vet[i]));
 		}
 		return list;

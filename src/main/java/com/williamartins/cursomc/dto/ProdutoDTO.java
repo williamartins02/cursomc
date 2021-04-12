@@ -13,6 +13,7 @@ public class ProdutoDTO implements Serializable {
 	
 	public ProdutoDTO() {}
 	
+	//construtor de ProdutoDTO que recebe um produto como argumento
 	public ProdutoDTO(Produto obj) {
 		id = obj.getId();
 		nome = obj.getNome();

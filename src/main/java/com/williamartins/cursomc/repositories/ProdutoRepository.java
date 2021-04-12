@@ -20,7 +20,8 @@ import com.williamartins.cursomc.domain.Produto;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
 	
-	/*Consulta JPQL do spring data, Função dentro do repository*/
+	/*Consulta JPQL do spring data, Função dentro do repository
+	 * fazendo busca de produtos por nomes e categorias.*/
 	@Transactional(readOnly = true)//é apenas uma consulta não é necessario fazer uma transação
 	@Query("SELECT DISTINCT obj FROM Produto obj INNER JOIN obj.categorias cat WHERE obj.nome LIKE %:nome% AND cat IN :categorias")
 	Page<Produto> search(@Param("nome")String nome, @Param("categorias")List<Categoria> categorias, Pageable pageRequest);
