@@ -99,7 +99,7 @@ public class ClienteService {
 		return repo.findAll(pageRequest);
 	}
 	
-	/*METODO fromDTO */
+	/*METODOS fromDTO */
 	
 	/*Metodo auxiliar que instancia uma Cliente apartir de um DTO,
 	 * ele não instancia do banco de dados, intacia um cliente colocando nulo onde que tiver que colocar*/

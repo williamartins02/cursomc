@@ -25,7 +25,8 @@ public class DevConfig {
 	@Bean
 	public boolean instantiateDatabase() throws ParseException{
 		
-		/*if para não replicar o banco de dados toda vezes que iniciar a aplicação.
+		/*if para não replicar o banco de dados toda vezes que iniciar a aplicação, ao iniciar o aplicativo, o 
+		 * banco zera
 		 * controle pra quando que eu devo instanciar "Recriar" a base de dado, no caso NÂO*/
 		if(!"create".equals(strategy)) {
 			return false;

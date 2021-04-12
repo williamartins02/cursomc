@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.williamartins.cursomc.domain.ItemPedido;
 import com.williamartins.cursomc.domain.PagamentoComBoleto;
@@ -13,7 +14,6 @@ import com.williamartins.cursomc.domain.enums.EstadoPagamento;
 import com.williamartins.cursomc.repositories.ItemPedidoRepository;
 import com.williamartins.cursomc.repositories.PagamentoRepository;
 import com.williamartins.cursomc.repositories.PedidoRepository;
-
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -29,6 +29,12 @@ public class PedidoService {
 
 	@Autowired
 	private BoletoService boletoService;
+	
+	@Autowired
+	private ProdutoService produtoService;
+	
+	@Autowired
+	private ClienteService clienteService;
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
@@ -36,8 +42,6 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 
-	@Autowired
-	private ProdutoService produtoService;
 
 	/*
 	 * Operação para fazer uma busca no banco de dados atraves do ID da Pedido e
@@ -51,10 +55,12 @@ public class PedidoService {
 	}
 
 	/* Metodo para inserir um novo pedido */
+	@Transactional
 	public Pedido insert(Pedido obj) throws ObjectNotFoundException {
 		//setando os obj
 		obj.setId(null);//id do pedido
 		obj.setInstante(new Date());//cria uma nova data com o instante "data" atual 
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));//buscando no banco o nome do cliente e o id do pedido
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);//Um pedido q esta sendo inserindo o pagamento tem que ser pendente
 		obj.getPagamento().setPedido(obj);//Associação de mão dupla, pagamento tem que conhecer o pedido dele.
 		
@@ -71,10 +77,12 @@ public class PedidoService {
 		/*percorrendo toda lista de pedido associada ao objeto "obj" */
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());//Buscando no BD o produto para copiar o preço dele.
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));//Buscando no BD o produto para copiar o preço dele.
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());// apos percorrer a lista, salvar o pedido no BD
+		System.out.println(obj);//imprimindo o pedido
 		return obj;
 	}
 }
