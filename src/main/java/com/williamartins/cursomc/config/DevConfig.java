@@ -41,7 +41,7 @@ public class DevConfig {
 	}
 
 	/*
-	 * Criando um Bean para retorno um email SmtpEmailService, par funcionar o envio
+	 * Criando um Bean para retornar um email SmtpEmailService, par funcionar o envio
 	 * precisa desse Bean
 	 */
 	@Bean
