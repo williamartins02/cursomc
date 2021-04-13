@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * DELET, INSERT, UPDATE." */
 	private static final String[] PUBLIC_MATCHERS_GET = { 
 			"/produtos/**", 
-			"/categorias/**" 
+			"/categorias/**",
+			"/clientes/**" 
 			};
 
 	// todos caminhos que tiver no vetor, permitir o acesso.

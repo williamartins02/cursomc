@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.williamartins.cursomc.domain.enums.Perfil;
 import com.williamartins.cursomc.domain.enums.TipoCliente;
 
 @Entity
@@ -47,12 +50,21 @@ public class Cliente implements Serializable {
 	@CollectionTable(name="TELEFONE")/*criando a tabela separada para armazenamento do telefone.*/
 	private Set<String> telefones = new HashSet<>();
 	
+	// atributo correspondente aos perfis do usuário a serem armazenados na base de dados
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")/*criando a tabela separada para armazenamento do telefone.*/
+	private Set<Integer> perfis = new HashSet<>();
+	
 	/*QNDO HOUVER 1-PARA-MUITOS COM LISTA, USAR O @OneToMany*/
 	@JsonIgnore /*Pedido dos cliente não sera serealizados*/
 	@OneToMany(mappedBy="cliente")/* O @OneToMany é o oposto do que o @ManyToOne, ou seja é o 1-para-muitos.*/
 	private List<Pedido> pedidos = new ArrayList<>(); /*Qndo for list NÃO colocar no construtor.*/
 	
-	public Cliente() {}
+	/*Dentro do construtor vazio criar e incluir perfil padrão (CLIENTE) na instanciação de Cliente
+	 * todos tem o perfil de clientes, ate definir oque cada um é*/
+	public Cliente() {
+		addPerfil(Perfil.CLIETE);
+	}
 
 	/*Construtor coma argumento NÂO é necessario, é feito para facilitar instacianção de objeto em uma linha só. 
 	 * evitando processo de da setemail, setnome etc..*/
@@ -64,6 +76,7 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo==null) ? null : tipo.getCod();//operador ternario para atribuir o null ou o codigo
 		this.senha = senha;
+		addPerfil(Perfil.CLIETE);
 	}
 
 	
@@ -123,6 +136,16 @@ public class Cliente implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	//Metodo para convertendo o numero inteiro para o PERFIL equivalente e retorna o perfil dos clientes.
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	//Metodo para adiconar os PERFIL..
+	 public void addPerfil(Perfil perfil) {
+		 perfis.add(perfil.getCod());
+	 }
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;

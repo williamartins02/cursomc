@@ -20,6 +20,7 @@ import com.williamartins.cursomc.domain.PagamentoComCartao;
 import com.williamartins.cursomc.domain.Pedido;
 import com.williamartins.cursomc.domain.Produto;
 import com.williamartins.cursomc.domain.enums.EstadoPagamento;
+import com.williamartins.cursomc.domain.enums.Perfil;
 import com.williamartins.cursomc.domain.enums.TipoCliente;
 import com.williamartins.cursomc.repositories.CategoriaRepository;
 import com.williamartins.cursomc.repositories.CidadeRepository;
@@ -146,30 +147,40 @@ public class DBService {
 /*======================================================================================================.*/
 				
 				/*Salvando Cliente no banco de dados.*/
-				Cliente cli1 = new Cliente(null, "William Martins","williamartins02@hotmail.com","699.897.680-13", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
-				Cliente cli2 = new Cliente(null, "William Martins","will100@gmail.com","913.848.710-12", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
-				Cliente cli3 = new Cliente(null, "Giovanna Fátima da Rosa","giovannafatimadarosa@lexos.com.br","26.874.793/0001-61", TipoCliente.PESSOAJURIDICA,bCryptPasswordEncoder.encode("123"));
-				Cliente cli4 = new Cliente(null, "Benjamin Caleb Caldeira","benjamincalebcaldeira@regler.com.br","53.639.468/0001-97", TipoCliente.PESSOAJURIDICA,bCryptPasswordEncoder.encode("123"));
 				
-				cli1.getTelefones().addAll(Arrays.asList("(11) 3696-3950","(11) 99787-7418"));
-				cli2.getTelefones().addAll(Arrays.asList("(11) 50905-8745","(11) 85436-9465"));
-				cli3.getTelefones().addAll(Arrays.asList("(21) 50905-8745","(21) 85436-9465"));
-				cli4.getTelefones().addAll(Arrays.asList("(28) 56296-0307", "(28) 71288-2112"));
-				
+				Cliente cli1 = new Cliente(null, "Dayane da Silva","williamartins02@hotmail.com","699.897.680-13", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
 				Endereco e1 = new Endereco(null, "Rua Luiz Fuad AbibUberlândia", "300", "Apt-303", "Jardim","38411-453",cli1, c1);
-				Endereco e2 = new Endereco(null, "Rua casa do ator", "294", "casa A", "Tagariuna","04546-001",cli2, c3);
-				Endereco e3 = new Endereco(null, "Rua Angra dos Reis", "151", "Sala A-21", "Penha","25485-001",cli3, c8);
-				Endereco e4 = new Endereco(null, "Rua das flores", "02", "Bloco-X1-00", "Martin","04577-021",cli4, c7);
 				Endereco e5 = new Endereco(null, "Rua Luiz Belo Horizonte", "12", "GalpãoG1", "Jardim","34567-453",cli1, c1);
-				
+				cli1.getTelefones().addAll(Arrays.asList("(11) 3696-3950","(11) 99787-7418"));
 				cli1.getEnderecos().addAll(Arrays.asList(e1));
-				cli2.getEnderecos().addAll(Arrays.asList(e2));
-				cli3.getEnderecos().addAll(Arrays.asList(e3));
-				cli4.getEnderecos().addAll(Arrays.asList(e4));
-				cli1.getEnderecos().addAll(Arrays.asList(e5));
 				
-				clienteRepository.saveAll(Arrays.asList(cli1,cli2,cli3,cli4));
-				enderecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));
+				
+				Cliente cli2 = new Cliente(null, "William Martinez","will100@gmail.com","913.848.710-12", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
+				Endereco e2 = new Endereco(null, "Rua casa do ator", "294", "casa A", "Tagariuna","04546-001",cli2, c3);
+				cli2.getTelefones().addAll(Arrays.asList("(11) 50905-8745","(11) 85436-9465"));
+				cli2.getEnderecos().addAll(Arrays.asList(e2));
+				
+				
+				Cliente cli3 = new Cliente(null, "Giovanna Fátima da Rosa","giovannafatimadarosa@lexos.com.br","26.874.793/0001-61", TipoCliente.PESSOAJURIDICA,bCryptPasswordEncoder.encode("123"));
+				Endereco e3 = new Endereco(null, "Rua Angra dos Reis", "151", "Sala A-21", "Penha","25485-001",cli3, c8);
+				cli3.getTelefones().addAll(Arrays.asList("(21) 50905-8745","(21) 85436-9465"));
+				cli3.getEnderecos().addAll(Arrays.asList(e3));
+				
+				
+				Cliente cli4 = new Cliente(null, "Benjamin Caleb Caldeira","benjamincalebcaldeira@regler.com.br","53.639.468/0001-97", TipoCliente.PESSOAJURIDICA,bCryptPasswordEncoder.encode("123"));
+				Endereco e4 = new Endereco(null, "Rua das flores", "02", "Bloco-X1-00", "Martin","04577-021",cli4, c7);
+				cli4.getTelefones().addAll(Arrays.asList("(28) 56296-0307", "(28) 71288-2112"));
+				cli4.getEnderecos().addAll(Arrays.asList(e4));
+				
+				
+				Cliente cli5 = new Cliente(null, "Gael Marcos Julio Barbosa","williamartinspring@gmail.com","162.970.988-32", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
+                cli5.addPerfil(Perfil.ADMIN);
+                Endereco e6 = new Endereco(null, "Rua Flor de Quaresma", "265", null, "Jardim Pedro José Nunes","08061-340",cli5, c3);
+                cli5.getTelefones().addAll(Arrays.asList("(11) 3722-8944", "(11) 98257-1547"));
+                cli5.getEnderecos().addAll(Arrays.asList(e6));
+                
+				clienteRepository.saveAll(Arrays.asList(cli1,cli2,cli3,cli4,cli5));
+				enderecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5, e6));
 /*====================================================================================================.*/
 				
 				/*Salvar pagamentos no banco e forma de pagamento...*/
