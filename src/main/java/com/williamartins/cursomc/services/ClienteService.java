@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.williamartins.cursomc.domain.Cidade;
@@ -37,6 +38,9 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/*Operação para fazer uma busca no banco de dados atraves do ID da Cliente e 
 	 mostra uma execessão caso o ID não existir..
@@ -104,7 +108,7 @@ public class ClienteService {
 	/*Metodo auxiliar que instancia uma Cliente apartir de um DTO,
 	 * ele não instancia do banco de dados, intacia um cliente colocando nulo onde que tiver que colocar*/
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null,null);
 	}
 	
 	/*Metodo auxiliar que instancia um Cliente, cidade, endereço e telefones apartir de um DTO e cadastra um novo cliente.
@@ -112,7 +116,7 @@ public class ClienteService {
 	public Cliente fromDTO(ClienteNewDTO objDto) {
 		
 		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), 
-				TipoCliente.toEnum(objDto.getTipo()));
+				TipoCliente.toEnum(objDto.getTipo()),bCryptPasswordEncoder.encode(objDto.getSenha()));
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), 
 				objDto.getBairro(), objDto.getCep(), cli, cid);

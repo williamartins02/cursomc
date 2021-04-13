@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.williamartins.cursomc.domain.Categoria;
@@ -34,6 +35,9 @@ import com.williamartins.cursomc.repositories.ProdutoRepository;
 /*Class que reconhece como instanciar meu banco de teste*/
 @Service
 public class DBService {
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -142,10 +146,10 @@ public class DBService {
 /*======================================================================================================.*/
 				
 				/*Salvando Cliente no banco de dados.*/
-				Cliente cli1 = new Cliente(null, "William Martins","williamartins02@hotmail.com","699.897.680-13", TipoCliente.PESSOAFISICA);
-				Cliente cli2 = new Cliente(null, "William Martins","will100@gmail.com","913.848.710-12", TipoCliente.PESSOAFISICA);
-				Cliente cli3 = new Cliente(null, "Giovanna Fátima da Rosa","giovannafatimadarosa@lexos.com.br","26.874.793/0001-61", TipoCliente.PESSOAJURIDICA);
-				Cliente cli4 = new Cliente(null, "Benjamin Caleb Caldeira","benjamincalebcaldeira@regler.com.br","53.639.468/0001-97", TipoCliente.PESSOAJURIDICA);
+				Cliente cli1 = new Cliente(null, "William Martins","williamartins02@hotmail.com","699.897.680-13", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
+				Cliente cli2 = new Cliente(null, "William Martins","will100@gmail.com","913.848.710-12", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
+				Cliente cli3 = new Cliente(null, "Giovanna Fátima da Rosa","giovannafatimadarosa@lexos.com.br","26.874.793/0001-61", TipoCliente.PESSOAJURIDICA,bCryptPasswordEncoder.encode("123"));
+				Cliente cli4 = new Cliente(null, "Benjamin Caleb Caldeira","benjamincalebcaldeira@regler.com.br","53.639.468/0001-97", TipoCliente.PESSOAJURIDICA,bCryptPasswordEncoder.encode("123"));
 				
 				cli1.getTelefones().addAll(Arrays.asList("(11) 3696-3950","(11) 99787-7418"));
 				cli2.getTelefones().addAll(Arrays.asList("(11) 50905-8745","(11) 85436-9465"));

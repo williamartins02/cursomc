@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,9 +27,14 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(unique=true)
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
+	
+	@JsonIgnore
+	private String senha;
 
 	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)//apagar registro em cascata "cascade = CascadeType.ALL"
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -48,14 +54,20 @@ public class Cliente implements Serializable {
 	
 	public Cliente() {}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	/*Construtor coma argumento NÂO é necessario, é feito para facilitar instacianção de objeto em uma linha só. 
+	 * evitando processo de da setemail, setnome etc..*/
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo==null) ? null : tipo.getCod();//operador ternario para atribuir o null ou o codigo
+		this.senha = senha;
 	}
+
+	
+	
 
 	public List<Pedido> getPedidos() {
 		return pedidos;
@@ -102,6 +114,14 @@ public class Cliente implements Serializable {
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public List<Endereco> getEnderecos() {
