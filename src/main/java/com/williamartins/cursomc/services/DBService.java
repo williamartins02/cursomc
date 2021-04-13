@@ -142,7 +142,7 @@ public class DBService {
 /*======================================================================================================.*/
 				
 				/*Salvando Cliente no banco de dados.*/
-				Cliente cli1 = new Cliente(null, "Dayane Silva","dayanesouzaa77@gmail.com","699.897.680-13", TipoCliente.PESSOAFISICA);
+				Cliente cli1 = new Cliente(null, "Carol ferron","williamartins02@hotmail.com","699.897.680-13", TipoCliente.PESSOAFISICA);
 				Cliente cli2 = new Cliente(null, "William Martins","will100@gmail.com","913.848.710-12", TipoCliente.PESSOAFISICA);
 				Cliente cli3 = new Cliente(null, "Giovanna Fátima da Rosa","giovannafatimadarosa@lexos.com.br","26.874.793/0001-61", TipoCliente.PESSOAJURIDICA);
 				Cliente cli4 = new Cliente(null, "Benjamin Caleb Caldeira","benjamincalebcaldeira@regler.com.br","53.639.468/0001-97", TipoCliente.PESSOAJURIDICA);

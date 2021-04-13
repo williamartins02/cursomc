@@ -85,7 +85,7 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());// apos percorrer a lista, salvar o pedido no BD
-		emailService.sendOrderConfirmationEmail(obj);//Confirmação dos email.
+		emailService.sendOrderConfirmationHtmlEmail(obj);//Confirmação dos email.
 		return obj;
 	}
 }
